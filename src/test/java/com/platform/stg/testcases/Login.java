@@ -14,6 +14,7 @@ public class Login {
 	@Test
 	public void testBookAppointment() {
 		
+		// Authored by codenissi
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
