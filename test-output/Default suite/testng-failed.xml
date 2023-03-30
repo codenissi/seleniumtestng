@@ -5,7 +5,9 @@
     <classes>
       <class name="com.platform.stg.testcases.Login">
         <methods>
-          <include name="testGoalSetter"/>
+          <include name="setup"/>
+          <include name="tearDown"/>
+          <include name="testBookAppointmentTwo"/>
         </methods>
       </class> <!-- com.platform.stg.testcases.Login -->
     </classes>
