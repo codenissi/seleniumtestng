@@ -5,7 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -13,23 +15,33 @@ public class Login {
 
 	WebDriver driver;
 
-	@BeforeTest
-	public void setup() {
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		// Navigate Browser URL
-		driver.get("https://katalon-demo-cura.herokuapp.com/");
-		// Get the title and verify 'Application Title'
-		String Actualtitle = driver.getTitle();
-		System.out.println(Actualtitle);
-		String ExpectedTitle = "CURA Healthcare Service";
-		Assert.assertEquals(ExpectedTitle, Actualtitle);
-	}
+	/*
+	 * @BeforeMethod public void setup() { driver = new ChromeDriver();
+	 * driver.manage().window().maximize();
+	 * driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //
+	 * Navigate Browser URL driver.get("https://katalon-demo-cura.herokuapp.com/");
+	 * // Get the title and verify 'Application Title' String Actualtitle =
+	 * driver.getTitle(); System.out.println(Actualtitle); String ExpectedTitle =
+	 * "CURA Healthcare Service"; Assert.assertEquals(ExpectedTitle, Actualtitle); }
+	 */
 
+	  @BeforeTest 
+	  public void setup() { 
+		  
+	  driver = new ChromeDriver();
+	  driver.manage().window().maximize();
+	  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	  //Navigate Browser URL 
+	  driver.get("https://katalon-demo-cura.herokuapp.com/");
+	  // Get the title and verify 'Application Title' 
+	  String Actualtitle = driver.getTitle(); 
+	  System.out.println(Actualtitle); 
+	  String ExpectedTitle ="CURA Healthcare Service"; Assert.assertEquals(ExpectedTitle, Actualtitle); }
+	 
 	@Test(priority = 1)
 	public void testBookAppointmentOne() {
-		// Navigate Login
+		
+		// Navigate Login Menu toggle
 		driver.findElement(By.xpath("//i[@class='fa fa-bars']")).click();
 		driver.findElement(By.xpath("//a[normalize-space()='Login']")).click();
 
@@ -53,7 +65,23 @@ public class Login {
 	public void testBookAppointmentTwo() {
 		// Click Homepage
 		driver.findElement(By.xpath("//a[normalize-space()='Go to Homepage']")).click();
+		
+		// Make an Appointment
+		driver.findElement(By.xpath("//select[@id='combo_facility']")).click();
+		driver.findElement(By.xpath("//option[@value='Hongkong CURA Healthcare Center']")).click();
+		driver.findElement(By.xpath("//input[@id='radio_program_medicaid']")).click();
+		driver.findElement(By.xpath("//input[@id='txt_visit_date']")).sendKeys("03/28/2023");
+		driver.findElement(By.xpath("//textarea[@id='txt_comment']")).sendKeys("QA Automation Testing");
+		// Click Book Appointment button
+		driver.findElement(By.xpath("//button[@id='btn-book-appointment']")).click();
 
+	}
+	
+	@Test(priority = 3)
+	public void testBookAppointmentThree() {
+		// Click Homepage
+		driver.findElement(By.xpath("//a[normalize-space()='Go to Homepage']")).click();
+		
 		// Make an Appointment
 		driver.findElement(By.xpath("//select[@id='combo_facility']")).click();
 		driver.findElement(By.xpath("//option[@value='Hongkong CURA Healthcare Center']")).click();
@@ -65,10 +93,11 @@ public class Login {
 
 	}
 
-	@AfterTest
-	public void tearDown() {
-		driver.quit();
-	}
+	
+	@AfterTest 
+	public void tearDown() { 
+		driver.quit(); }
+	 
 
 }
 
